@@ -1,0 +1,8 @@
+[workspace]
+
+members = [
+    "agent",
+    "roll",
+    "bbox",
+    "ballot"
+]
