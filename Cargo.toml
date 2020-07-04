@@ -2,7 +2,8 @@
 
 members = [
     "agent",
-    "roll",
+    "ballot",
     "bbox",
-    "ballot"
+    "protocol",
+    "roll",
 ]
