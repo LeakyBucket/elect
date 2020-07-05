@@ -1,5 +1,11 @@
 @0xf8664fb3080a8a9f;
 
+struct Receipt @0xeafdeba7605c5845 {
+  # The Receipt is acknowledgement from the Ballot Box that is has accepted the submitted Ballot
+
+  ballot_id @0 :Text; # The UUID assigned to the Ballot
+}
+
 struct Registration @0xe625dfeaa5c700a2 {
   # The Registration type is used to register an Agent with a Roll for an election
 

@@ -1,10 +1,3 @@
-// Agent states:
-//
-//  * Unregistered
-//  * Registered
-//  * Voting (Processing Ballot)
-//  * Voted (Ballot Cast)
-
 // The Agent can really be in 1 of two main states:
 //
 //  * Not voting
@@ -22,49 +15,33 @@
 //  * Filling out a ballot
 //  * Submitting a ballot to a ballot box
 
-pub struct Unregistered;
-pub struct Registered;
+// States
+pub struct History;
+pub struct Registration;
 pub struct Voting;
-pub struct Voted;
 
 pub struct State<S> {
-    _inner: S
+    _inner: S,
 }
 
-impl State<Unregistered> {
-    pub fn new() -> State<Unregistered> {
-        State { _inner: Unregistered{} }
+impl State<History> {
+    pub fn next(self) -> State<Registration> {
+        State { _inner: Registration{} }
     }
 }
 
-impl State<Voted> {
-    pub fn new() -> State<Unregistered> {
-        State { _inner: Unregistered{} }
-    }
-
-    fn next(self) -> State<Unregistered> {
-        State { _inner: Unregistered{} }
-    }
-}
-
-impl State<Unregistered> {
-    fn next(self) -> State<Registered> {
-        State { _inner: Registered{} }
-    }
-}
-
-impl State<Registered> {
-    fn next(self) -> State<Voting> {
+impl State<Registration> {
+    pub fn next(self) -> State<Voting> {
         State { _inner: Voting{} }
     }
 }
 
 impl State<Voting> {
-    fn next(self) -> State<Voted> {
-        State { _inner: Voted{} }
+    pub fn next(self) -> State<History> {
+        State { _inner: History{} }
     }
 }
 
-pub fn new() -> State<Unregistered> {
-    State { _inner: Unregistered{} }
+pub fn new() -> State<History> {
+    State { _inner: History{} }
 }

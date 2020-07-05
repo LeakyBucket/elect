@@ -8,3 +8,6 @@ edition = "2018"
 
 [dependencies]
 ballot = { path = "../ballot" }
+protocol = { path = "../protocol" }
+sodiumoxide = "0.2.5"
+druid = "0.6.0"
