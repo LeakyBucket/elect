@@ -5,6 +5,23 @@
 //  * Voting (Processing Ballot)
 //  * Voted (Ballot Cast)
 
+// The Agent can really be in 1 of two main states:
+//
+//  * Not voting
+//  * Voting
+
+// Each of the two main states can have several smaller states:
+//
+// ## Not Voting
+//
+//  * Viewing history
+//  * Connecting to a Roll to start voting
+//
+// ## Voting
+//
+//  * Filling out a ballot
+//  * Submitting a ballot to a ballot box
+
 pub struct Unregistered;
 pub struct Registered;
 pub struct Voting;
