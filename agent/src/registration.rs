@@ -1,10 +1,14 @@
 use protocol::messages::Registration;
+
+use std::net::TcpStream;
 use std::io;
 
-pub fn connect(roll: &str) -> Result<(), io::Error> {
+// Connect to a Roll in order to regsiter for an ongoing vote
+pub fn connect(roll: &str) -> io::Result<TcpStream> {
 
 }
 
-pub fn identify(creds: Registration) -> Result<Ballot, io::Error> {
+// Provide identity credentials to the Roll
+pub fn identify(creds: Registration, conn: &mut TcpStream) -> io::Result<Ballot> {
 
 }

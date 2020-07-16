@@ -1,9 +1,14 @@
 use ballot::{Ballot, Event};
 
-pub fn list() -> Option<Vec<Event>> {
+use std::io;
 
+// List voting history for this Agent
+pub fn list() -> Option<Vec<Event>> {
+    // Similarly to Key storage, just return None for now
+    None
 }
 
-pub fn view(ballot: usize) -> Ballot {
+// View the details of an already cast Ballot
+pub fn view(ballot: &str) -> Result<Ballot, io::Error> {
 
 }
