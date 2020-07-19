@@ -1,10 +1,6 @@
-extern crate ballot;
-
-use ballot::Ballot;
-use flexbuffers;
-use serde::{Deserialize, Serialize};
-use sodiumoxide::crypto::sign::ed25519::{PublicKey, Signature};
-use uuid::Uuid;
+pub mod cast;
+pub mod registration;
+pub mod sync;
 
 // Protocols need to exist for three main processes:
 //
@@ -35,75 +31,23 @@ use uuid::Uuid;
 // box have a copy of the public key used by that party and can verify the
 // signature on the completed ballot.
 
-#[derive(Deserialize, Serialize)]
-pub struct Receipt {
-    accepted: bool,
-    ballot_id: Uuid,
-    sub_info: SubmissionData,
-}
+// HTTP API
+//
+// Registration
+//
+//  * Agent makes request
+//  * Roll responds with challenge or ballot
+//  * If challenge Agent replies with answers
+//    * checks may be automated or manual
+//    * automated may be quick enough to complete in same request
+//    * manual would need async behavior as they won't be fast and may queue
+//
+//  
+//
+// Submission
+//
+//  * 
 
-#[derive(Deserialize, Serialize)]
-pub struct SubmissionData {
-    bbox: Uuid,
-    box_sig: Signature,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct Registration {
-    agent_id: Uuid,
-    agent_key: PublicKey,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct Challenge {
-    questions: Vec<Question>,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct Question {
-    query: String,
-    answer: String,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct RegistrationResponse {
-    accepted: bool,
-    ballot: Ballot,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct Submission {
-    agent_id: Uuid,
-    key: PublicKey,
-    signature: Signature,
-    ballot: Ballot,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct Sync {
-    agent_id: Uuid,
-    event: SyncEvent,
-}
-
-#[derive(Deserialize, Serialize)]
-pub enum SyncEvent {
-    Registered,
-    Submitted,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct ErrorMessage {
-    kind: ErrorType,
-}
-
-#[derive(Deserialize, Serialize)]
-pub enum ErrorType {
-    UnexpectedMessage,
-    InvalidMessage,
-    BadAnswer,
-}
-
-#[cfg(test)]
 mod tests {
     #[test]
     fn it_works() {
