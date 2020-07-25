@@ -15,33 +15,76 @@
 //  * Filling out a ballot
 //  * Submitting a ballot to a ballot box
 
-// States
-pub struct History;
-pub struct Registration;
-pub struct Voting;
-
-pub struct State<S> {
-    _inner: S,
+pub struct AgentState<S> {
+    state: S
 }
 
-impl State<History> {
-    pub fn next(self) -> State<Registration> {
-        State { _inner: Registration{} }
+struct ViewingHistory;
+struct ViewingBallot;
+struct Registration;
+struct Verification;
+struct Voting;
+
+impl AgentState<ViewingHistory> {
+    fn new() -> Self {
+        AgentState {
+            state: ViewingHistory {},
+        }
     }
 }
 
-impl State<Registration> {
-    pub fn next(self) -> State<Voting> {
-        State { _inner: Voting{} }
+impl From<AgentState<ViewingHistory>> for AgentState<ViewingBallot> {
+    fn from(val: AgentState<ViewingHistory>) -> AgentState<ViewingBallot> {
+        AgentState {
+            state: ViewingBallot {},
+        }
     }
 }
 
-impl State<Voting> {
-    pub fn next(self) -> State<History> {
-        State { _inner: History{} }
+impl From<AgentState<ViewingHistory>> for AgentState<Registration> {
+    fn from(val: AgentState<ViewingHistory>) -> AgentState<Registration> {
+        AgentState {
+            state: Registration {},
+        }
     }
 }
 
-pub fn new() -> State<History> {
-    State { _inner: History{} }
+impl From<AgentState<ViewingBallot>> for AgentState<ViewingHistory> {
+    fn from(val: AgentState<ViewingBallot>) -> AgentState<ViewingHistory> {
+        AgentState {
+            state: ViewingHistory {},
+        }
+    }
+}
+
+impl From<AgentState<Registration>> for AgentState<Verification> {
+    fn from(val: AgentState<Registration>) -> AgentState<Verification> {
+        AgentState {
+            state: Verification {},
+        }
+    }
+}
+
+impl From<AgentState<Registration>> for AgentState<Voting> {
+    fn from(val: AgentState<Regsitration>) -> AgentState<Voting> {
+        AgentState {
+            state: Voting {},
+        }
+    }
+}
+
+impl From<AgentState<Voting>> for AgentState<ViewingReceipt> {
+    fn from(val: AgentState<Voting>) -> AgentState<ViewingReceipt> {
+        AgentState {
+            state: ViewingReceipt {},
+        }
+    }
+}
+
+impl From<AgentState<ViewingReceipt>> for AgentState<ViewingHistory> {
+    fn from(val: AgentState<ViewingReceipt>) -> AgentState<ViewingHistory> {
+        AgentState {
+            state: ViewingHistory {},
+        }
+    }
 }
