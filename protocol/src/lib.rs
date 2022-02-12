@@ -1,3 +1,5 @@
+use flexbuffers;
+
 pub mod cast;
 pub mod registration;
 pub mod sync;
@@ -47,6 +49,110 @@ pub mod sync;
 // Submission
 //
 //  * 
+
+pub enum Component {
+    Agent,
+    Box,
+    Roll,
+}
+
+pub struct Cast {
+    component: Component,
+    previous: Option<cast::Messages>,
+}
+
+impl Cast {
+    fn new(component: Component) -> Self {
+        Self { component, previous: None }
+    }
+
+    fn deserialize(&mut self, data: &[u8]) -> cast::Messages {
+        if self.is_agent() {
+            self.agent_receive(data)
+        } else {
+            self.box_receive(data)
+        }
+    }
+
+    fn agent_receive(&mut self, data: &[u8]) -> cast::Messages {
+        match self.previous {
+            None => {
+
+            },
+            cast::Message::Cast => {
+
+            },
+            cast::Message::Response => {
+
+            }
+        }
+    }
+
+    fn box_receive(&mut self, data: &[u8]) -> cast::Messages {
+        match self.previous {
+            None => {
+                cast::Cast.deserialize(data).unwrap()
+            },
+            _ => {
+            
+            }
+        }
+    }
+
+    fn is_agent(&mut self) -> bool {
+        self.component == Component::Agent
+    }
+
+    fn is_box(&mut self) -> bool {
+        self.component == Component::Box
+    }
+}
+
+pub struct Registration {
+    component: Component,
+    previous: Option<cast::Messages>,
+}
+
+impl Registration {
+    fn new(component: Component) -> Self {
+        Self { component, previous: None }
+    }
+
+    fn deserialize(&mut self, data: &[u8]) -> registration::Messages {
+
+    }
+
+    fn is_roll(&mut self) -> bool {
+        self.component == Component::Roll
+    }
+
+    fn is_agent(&mut self) -> bool {
+        self.component == Component::Agent
+    }
+}
+
+pub struct Sync {
+    component: Component,
+    previous: Option<cast::Messages>,
+}
+
+impl Sync {
+    fn new(component: Component) -> Self {
+        Self { component, previous: None }
+    }
+
+    fn deserialize(&mut self, date: &[u8]) -> sync::Messages {
+
+    }
+
+    fn is_box(&mut self) -> bool {
+        self.component == Component::Box
+    }
+
+    fn is_roll(&mut self) -> bool {
+        self.component == Component::Roll
+    }
+}
 
 mod tests {
     #[test]

@@ -30,3 +30,8 @@ pub enum Response {
     Receipt { ballot_id: Uuid, signature: Signature },
     Error { message: String},
 }
+
+pub enum Messages {
+    Cast,
+    Response,
+}

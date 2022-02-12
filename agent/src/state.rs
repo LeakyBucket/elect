@@ -36,6 +36,8 @@ impl AgentState<ViewingHistory> {
             state: ViewingHistory {},
         }
     }
+
+    fn next(message)
 }
 
 impl From<AgentState<ViewingHistory>> for AgentState<ViewingBallot> {

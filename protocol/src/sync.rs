@@ -31,3 +31,9 @@ pub struct Registration {
 pub struct Cast {
     agent_id: Uuid,
 }
+
+pub enum Messages {
+    Discovery,
+    Registration,
+    Cast,
+}

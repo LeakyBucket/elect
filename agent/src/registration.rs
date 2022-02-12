@@ -1,4 +1,4 @@
-use protocol::messages::Registration;
+use protocol::{Challenge, ErrorMessage, Question, Registration, RegistrationResponse};
 
 use std::net::TcpStream;
 use std::io;

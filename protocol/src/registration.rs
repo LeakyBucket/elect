@@ -44,3 +44,9 @@ pub enum Response {
     Success { box_address: String, box_key: PublicKey, ballot: Ballot },
     Failure { reason: String },
 }
+
+pub enum Messages {
+    Request,
+    Verification,
+    Response,
+}
